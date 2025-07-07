@@ -8,7 +8,7 @@ load_dotenv(override=True)
 
 ## app ##
 
-SECRET_APP_KEY = os.getenv('secret_app_key')
+SECRET_APP_KEY = os.getenv('SECRET_APP_KEY')
 
 ## database ##
 
