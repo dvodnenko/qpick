@@ -12,8 +12,8 @@ SECRET_APP_KEY = os.getenv('SECRET_APP_KEY')
 
 ## database ##
 
-DATABASE_NAME = os.getenv('database_name')
-DATABASE_USER = os.getenv('database_user')
-DATABASE_PASSWORD = os.getenv('database_password')
-DATABASE_HOST = os.getenv('database_host')
-DATABASE_PORT = int(os.getenv('database_port'))
+DATABASE_NAME = os.getenv('DATABASE_NAME')
+DATABASE_USER = os.getenv('DATABASE_USER')
+DATABASE_PASSWORD = os.getenv('DATABASE_PASSWORD')
+DATABASE_HOST = os.getenv('DATABASE_HOST')
+DATABASE_PORT = int(os.getenv('DATABASE_PORT'))
