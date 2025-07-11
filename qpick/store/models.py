@@ -6,3 +6,10 @@ from django.db import models
 class Product(models.Model):
     title = models.CharField(max_length=64, default='')
     price = models.IntegerField(default=1)
+
+
+class Headphone(Product):
+    ...
+
+class Cover(Product):
+    ...
