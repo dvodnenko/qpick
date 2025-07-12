@@ -13,7 +13,11 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 from pathlib import Path
 
-from .config import SECRET_APP_KEY, DATABASE_NAME, DATABASE_HOST, DATABASE_PORT, DATABASE_USER, DATABASE_PASSWORD
+from .config import (
+    SECRET_APP_KEY, DATABASE_NAME, DATABASE_HOST, DATABASE_PORT, 
+    DATABASE_USER, DATABASE_PASSWORD, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET, 
+    CLOUDINARY_CLOUD_NAME
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,8 +44,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'cloudinary', 
+    'cloudinary_storage',
+
     'store',
 ]
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': CLOUDINARY_CLOUD_NAME,
+    'API_KEY': CLOUDINARY_API_KEY,
+    'API_SECRET': CLOUDINARY_API_SECRET
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
