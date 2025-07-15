@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from qpick.store.models import Headphone, Cover
+from store.models import Headphone, Cover
 
 
 class HeadphoneSerializer(serializers.ModelSerializer):

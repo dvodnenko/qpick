@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
 
-from qpick.store.models import Headphone, Cover
+from store.models import Headphone, Cover
 from .serializers import HeadphoneSerializer, CoverSerializer
 
 # Create your views here.
