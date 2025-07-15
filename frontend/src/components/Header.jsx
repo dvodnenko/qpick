@@ -1,17 +1,17 @@
 function Header() {
     return (
         <header>
-            <div class="headerItem">
-                <div class="logo">
+            <div className="headerItem">
+                <div className="logo">
                     <h2 style={{cursor: "pointer"}}>QPICK</h2>
                 </div>
             </div>
 
-            <div class="headerItem">
-                <div class="heartGroup">
+            <div className="headerItem">
+                <div className="heartGroup">
                     <span title="liked products" style={{cursor: "pointer"}}>❤️</span>
                 </div>
-                <div class="cartGroup">
+                <div className="cartGroup">
                     <span title="your cart" style={{cursor: "pointer"}}>🛒</span>
                 </div>
             </div>
