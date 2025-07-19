@@ -5,6 +5,7 @@ import Header from "./Header"
 import Banner from "./Banner"
 import HeadphoneCard from "./HeadphoneCard"
 import CoverCard from "./CoverCard"
+import Footer from "./Footer"
 
 
 function Home() {
@@ -64,6 +65,8 @@ function Home() {
                     ))}
                 </section>
             </main>
+
+            <Footer />
         </>
     )
 }
