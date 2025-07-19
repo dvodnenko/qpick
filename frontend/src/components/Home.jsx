@@ -4,6 +4,7 @@ import API from "../api"
 import Header from "./Header"
 import Banner from "./Banner"
 import HeadphoneCard from "./HeadphoneCard"
+import CoverCard from "./CoverCard"
 
 
 function Home() {
@@ -53,6 +54,13 @@ function Home() {
                 <section>
                     {headphones.map((element, index) => (
                         <HeadphoneCard product={element} key={`headphone-card-${index}`} />
+                    ))}
+                </section>
+
+                <h3>covers</h3>
+                <section>
+                    {covers.map((element, index) => (
+                        <CoverCard product={element} key={`cover-card-${index}`} />
                     ))}
                 </section>
             </main>
