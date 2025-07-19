@@ -3,6 +3,7 @@ import API from "../api"
 
 import Header from "./Header"
 import Banner from "./Banner"
+import HeadphoneCard from "./HeadphoneCard"
 
 
 function Home() {
@@ -46,6 +47,15 @@ function Home() {
             <Header />
 
             <Banner />
+
+            <main>
+                <h3>headphones</h3>
+                <section>
+                    {headphones.map((element, index) => (
+                        <HeadphoneCard product={element} key={`headphone-card-${index}`} />
+                    ))}
+                </section>
+            </main>
         </>
     )
 }

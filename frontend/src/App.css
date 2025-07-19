@@ -5,6 +5,10 @@
     font-family: monospace;
 }
 
+html {
+    background-color: #EAEAEA;
+}
+
 .wrap {
     width: 100%;
     min-height: 100vh;
@@ -121,7 +125,6 @@ header {
 main{
     width: 100%;
     display: flex;
-    align-items: center;
     flex-direction: column;
 }
 
@@ -145,7 +148,7 @@ main{
     background-color: #fff;
     border-radius: 30px;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-    width: 330px;
+    width: 30%;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -317,4 +320,20 @@ h5{
 .phoneCasesGroup p{
     margin-top: 15px;
     margin-bottom: 15px;
+}
+
+section {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+section .card {
+    margin: 20px 0;
+    padding: 40px;
+}
+
+main h3{
+    color: grey;
 }
