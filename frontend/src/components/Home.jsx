@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import API from "../api"
 
 import Header from "./Header"
+import Banner from "./Banner"
 
 
 function Home() {
@@ -43,6 +44,8 @@ function Home() {
     return (
         <>
             <Header />
+
+            <Banner />
         </>
     )
 }
