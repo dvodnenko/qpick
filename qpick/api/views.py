@@ -63,3 +63,16 @@ class AddToCartView(APIView):
 
         serializer = CartItemSerializer(cart_item)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class CartView(APIView):
+    def get(self, request: HttpRequest):
+        session_key = request.query_params.get('session_key')
+
+        if not session_key:
+            return Response({'error': 'session_key is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+        cart_items = CartItem.objects.filter(session_key=session_key).select_related('product')
+        serializer = CartItemSerializer(cart_items, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
