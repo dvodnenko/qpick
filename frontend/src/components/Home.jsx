@@ -51,14 +51,14 @@ function Home() {
             <Banner />
 
             <main>
-                <h3>headphones</h3>
+                {headphones.length > 0 ? <h3>Headphones</h3> : <h3>No Headphones Found</h3>}
                 <section>
                     {headphones.map((element, index) => (
                         <HeadphoneCard product={element} key={`headphone-card-${index}`} />
                     ))}
                 </section>
 
-                <h3>covers</h3>
+                {covers.length > 0 ? <h3>Covers</h3> : <h3>No Covers Found</h3>}
                 <section>
                     {covers.map((element, index) => (
                         <CoverCard product={element} key={`cover-card-${index}`} />
