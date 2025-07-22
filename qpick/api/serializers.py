@@ -1,16 +1,22 @@
 from rest_framework import serializers
-from store.models import Headphone, Cover
+from store.models import Product, Headphone, Cover
+
+
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ['id', 'title', 'price', 'currency', 'image']
 
 
 class HeadphoneSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Headphone
-        fields = '__all__'
+        fields = ['id', 'title', 'price', 'currency', 'image']
 
 
 class CoverSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Cover
-        fields = '__all__'
+        fields = ['id', 'title', 'price', 'currency', 'image']
