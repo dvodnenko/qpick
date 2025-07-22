@@ -1,3 +1,6 @@
+import { addToCart } from '../services/cart'
+
+
 function HeadphoneCard({product}) {
 
     return (
@@ -12,6 +15,17 @@ function HeadphoneCard({product}) {
                 <div className="cardName">{product.title}</div>
                 <div className="cardPrice">{product.price}{product.currency}</div>
             </div>
+
+            <button onClick={() => {
+                let quantity = prompt('Enter Quantity: ')
+
+                if (quantity <= 0) {
+                    alert('Error: Quantity Must be Greater Than 0')
+                    return null
+                }
+
+                addToCart(product.id, quantity)
+            }}>Add To Cart</button>
         </div>
     )
 }

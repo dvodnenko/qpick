@@ -42,7 +42,7 @@ class CoverView(APIView):
 
 class AddToCartView(APIView):
     def post(self, request: HttpRequest):
-        session_key = request.session.session_key
+        session_key = request.data.get('session_key')
         if not session_key:
             request.session.create()
             session_key = request.session.session_key
@@ -67,7 +67,8 @@ class AddToCartView(APIView):
 
 class CartView(APIView):
     def get(self, request: HttpRequest):
-        session_key = request.query_params.get('session_key')
+        session_key = request.GET.get('session_key')
+        print(session_key)
 
         if not session_key:
             return Response({'error': 'session_key is required'}, status=status.HTTP_400_BAD_REQUEST)
