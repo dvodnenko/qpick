@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from store.models import Product, Headphone, Cover
+from store.models import Product, Headphone, Cover, Cart, CartItem
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -20,3 +20,19 @@ class CoverSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cover
         fields = ['id', 'title', 'price', 'currency', 'image']
+
+
+class CartItemSerializer(serializers.ModelSerializer):
+    product = ProductSerializer()
+
+    class Meta:
+        model = CartItem
+        fields = ['id', 'product', 'quantity']
+
+
+class CartSerializer(serializers.ModelSerializer):
+    items = CartItemSerializer(many=True)
+
+    class Meta:
+        model = Cart
+        fields = ['id', 'items']
