@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
 
 from cloudinary_storage.storage import MediaCloudinaryStorage
 
@@ -24,13 +23,11 @@ class Headphone(Product):
 class Cover(Product):
     ...
 
-class Cart(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    session_key = models.CharField(max_length=40, null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-
 class CartItem(models.Model):
-    cart = models.ForeignKey(Cart, related_name='items', on_delete=models.CASCADE)
+    session_key = models.CharField(max_length=40, blank=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
+    added_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f'{self.product.title} x{self.quantity} [{self.session_key}]'
