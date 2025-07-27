@@ -7,12 +7,16 @@ import HeadphoneCard from "./HeadphoneCard"
 import CoverCard from "./CoverCard"
 import Footer from "./Footer"
 
+import { getCart } from "../services/cart"
+
 
 function Home() {
     const [loading, setLoading] = useState(true)
 
     const [headphones, setHeadphones] = useState([])
     const [covers, setCovers] = useState([])
+
+    const [cart, setCart] = useState(null)
 
 
     useEffect(() => {
@@ -39,7 +43,14 @@ function Home() {
             return null
         }
 
+        async function fetchCart() {
+            let cart = await getCart()
+            setCart(cart)
+        }
+        
         fetchData()
+        fetchCart()
+        
     }, [])
 
     if (loading) return <div>Loading...</div>;

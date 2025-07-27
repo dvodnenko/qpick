@@ -13,3 +13,11 @@ export const addToCart = async (productId, quantity = 1) => {
     
     await API.post('/api/cart/add/', data)
 }
+
+export const getCart = async () => {
+    const sessionKey = getSessionKey()
+
+    let response = await API.get(`/api/cart?session_key=${sessionKey}`)
+
+    return response.data
+}

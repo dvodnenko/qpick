@@ -68,7 +68,6 @@ class AddToCartView(APIView):
 class CartView(APIView):
     def get(self, request: HttpRequest):
         session_key = request.GET.get('session_key')
-        print(session_key)
 
         if not session_key:
             return Response({'error': 'session_key is required'}, status=status.HTTP_400_BAD_REQUEST)
