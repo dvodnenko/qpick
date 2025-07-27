@@ -57,7 +57,7 @@ function Home() {
 
     return (
         <>
-            <Header />
+            <Header titleContent={'QPICK'} />
 
             <Banner />
 

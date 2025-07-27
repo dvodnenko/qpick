@@ -1,9 +1,9 @@
-function Header() {
+function Header({titleContent}) {
     return (
         <header>
             <div className="headerItem">
                 <div className="logo">
-                    <h2 style={{cursor: "pointer"}}>QPICK</h2>
+                    <h2 style={{cursor: "pointer"}}>{titleContent}</h2>
                 </div>
             </div>
 
