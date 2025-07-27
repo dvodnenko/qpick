@@ -10,7 +10,7 @@ function Home({headphones, covers}) {
 
     return (
         <>
-            <Header titleContent={'QPICK'} />
+            <Header titleContent={'Qpick'} />
 
             <Banner />
 

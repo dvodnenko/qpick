@@ -5,13 +5,14 @@
     font-family: monospace;
 }
 
-html {
+html, body {
     background-color: #EAEAEA;
 }
 
 .wrap {
     width: 100%;
-    min-height: 100vh;
+    height: 100%;
+    height: fit-content;
     display: flex;
     padding: 0 150px;
     flex-direction: column;
@@ -31,7 +32,6 @@ header {
 }
 
 .logo {
-    transform: uppercase;
     font-style: normal;
     font-weight: 700;
     font-size: 25px;
@@ -175,6 +175,7 @@ main{
 
 .card img{
     width: 151px;
+    border-radius: 10px;
 }
 
 h5{
@@ -262,6 +263,13 @@ footer{
     align-items: center;
     justify-content: space-between;
     padding: 0 10%;
+    /* float: bottom; */
+    bottom: 0;
+}
+
+a{
+    color: black;
+    text-decoration: none;
 }
 
 .footerItem {
@@ -269,8 +277,6 @@ footer{
 }
 
 .logo{
-    /* padding: 29px 0 0 29px; */
-    text-transform: uppercase;
     font-weight: 700;
     font-size: 25px;
 }

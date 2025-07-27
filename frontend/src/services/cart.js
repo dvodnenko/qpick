@@ -2,11 +2,12 @@ import API from '../utils/api'
 import { getSessionKey } from '../utils/session'
 
 
-export const addToCart = async (productId, quantity = 1) => {
+export const addToCart = async (productId, productType, quantity = 1) => {
     const sessionKey = getSessionKey()
 
     const data = {
         product_id: productId,
+        product_type: productType,
         quantity: quantity,
         session_key: sessionKey,
     }

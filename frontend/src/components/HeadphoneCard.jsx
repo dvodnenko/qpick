@@ -2,6 +2,7 @@ import { addToCart } from '../services/cart'
 
 
 function HeadphoneCard({product, includeButton = false}) {
+    console.log(product)
 
     if (includeButton) {
         return (
@@ -24,7 +25,7 @@ function HeadphoneCard({product, includeButton = false}) {
                         return null
                     }
     
-                    addToCart(product.id, quantity)
+                    addToCart(product.id, 'Headphone', quantity)
                 }}>Add To Cart</button>
             </div>
         )

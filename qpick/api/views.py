@@ -48,18 +48,23 @@ class AddToCartView(APIView):
             session_key = request.session.session_key
 
         product_id = request.data.get('product_id')
+        product_type = request.data.get('product_type')
         quantity = int(request.data.get('quantity', 1))
 
         product = Product.objects.get(id=product_id)
         cart_item, created = CartItem.objects.get_or_create(
             session_key=session_key,
             product=product,
-            defaults={'quantity': quantity}
+            product_type=product_type,
+            defaults={
+                'quantity': quantity,
+                'product_type': product_type,
+            },
         )
 
         if not created:
             cart_item.quantity += quantity
-            cart_item.save()
+            cart_item.save(product_type=product_type)
 
         serializer = CartItemSerializer(cart_item)
         return Response(serializer.data, status=status.HTTP_201_CREATED)

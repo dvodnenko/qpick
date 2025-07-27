@@ -24,7 +24,7 @@ function CoverCard({product, includeButton = false}) {
                             return null
                         }
         
-                        addToCart(product.id, quantity)
+                        addToCart(product.id, 'Cover', quantity)
                     }}>Add To Cart</button>
             </div>
         )
