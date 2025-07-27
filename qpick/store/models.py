@@ -26,8 +26,14 @@ class Cover(Product):
 class CartItem(models.Model):
     session_key = models.CharField(max_length=40, blank=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product_type = models.CharField(max_length=16, default='')
     quantity = models.PositiveIntegerField(default=1)
     added_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if not self.product_type and self.product:
+            self.product_type = self.product.__class__.__name__
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f'{self.product.title} x{self.quantity} [{self.session_key}]'
