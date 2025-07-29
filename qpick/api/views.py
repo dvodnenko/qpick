@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from store.models import Product, Headphone, Cover, CartItem
+from store.models import Product, Headphone, Cover, Cart, CartItem
 from .serializers import HeadphoneSerializer, CoverSerializer, CartItemSerializer
 
 # Create your views here.
@@ -52,8 +52,16 @@ class AddToCartView(APIView):
         quantity = int(request.data.get('quantity', 1))
 
         product = Product.objects.get(id=product_id)
-        cart_item, created = CartItem.objects.get_or_create(
+
+        cart, created = Cart.objects.get_or_create(
             session_key=session_key,
+            defaults={
+                'total_price': 0
+            }
+        )
+
+        cart_item, created = CartItem.objects.get_or_create(
+            cart=cart,
             product=product,
             product_type=product_type,
             defaults={
@@ -77,7 +85,8 @@ class CartView(APIView):
         if not session_key:
             return Response({'error': 'session_key is required'}, status=status.HTTP_400_BAD_REQUEST)
 
-        cart_items = CartItem.objects.filter(session_key=session_key).select_related('product')
+        cart = Cart.objects.filter(session_key=session_key).first()
+        cart_items = CartItem.objects.filter(cart=cart)
         serializer = CartItemSerializer(cart_items, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
