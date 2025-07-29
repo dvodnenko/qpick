@@ -12,6 +12,7 @@ class Product(models.Model):
     ]
 
     title = models.CharField(max_length=64, default='')
+    quantity = models.PositiveIntegerField(default=1)
     price = models.IntegerField(default=1)
     currency = models.CharField(choices=currency_choices, default='₴')
     image = models.ImageField(default='/static/default-image.webp', upload_to='products/', storage=MediaCloudinaryStorage)

@@ -49,7 +49,7 @@ class AddToCartView(APIView):
 
         product_id = request.data.get('product_id')
         product_type = request.data.get('product_type')
-        quantity = int(request.data.get('quantity', 1))
+        quantity_to_add = int(request.data.get('quantity', 1))
 
         product = Product.objects.get(id=product_id)
 
@@ -65,13 +65,17 @@ class AddToCartView(APIView):
             product=product,
             product_type=product_type,
             defaults={
-                'quantity': quantity,
+                'quantity': quantity_to_add,
                 'product_type': product_type,
             },
         )
 
+        # user cannot have 3 products in the cart, if there are only 2 in the storage
+        if cart_item.quantity + quantity_to_add > product.quantity:
+            return Response({'error': 'quantity is too big'}, status=status.HTTP_403_FORBIDDEN)
+
         if not created:
-            cart_item.quantity += quantity
+            cart_item.quantity += quantity_to_add
             cart_item.save()
 
         serializer = CartItemSerializer(cart_item)
