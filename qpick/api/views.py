@@ -4,8 +4,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from store.models import Product, Headphone, Cover, Cart, CartItem
-from .serializers import HeadphoneSerializer, CoverSerializer, CartItemSerializer
+from store.models import Product, Headphone, Cover, Cart, CartItem, Order, OrderItem
+from .serializers import HeadphoneSerializer, CoverSerializer, CartItemSerializer, OrderSerializer
 
 # Create your views here.
 
@@ -92,5 +92,49 @@ class CartView(APIView):
         cart = Cart.objects.filter(session_key=session_key).first()
         cart_items = CartItem.objects.filter(cart=cart)
         serializer = CartItemSerializer(cart_items, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class OrderView(APIView):
+    def get(self, request: HttpRequest):
+        session_key = request.GET.get('session_key')
+
+        if not session_key:
+            return Response({'error': 'session_key is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+        order = Order.objects.filter(session_key=session_key).first()
+        order_items = CartItem.objects.filter(order=order)
+        serializer = CartItemSerializer(order_items, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request: HttpRequest):
+        session_key = request.GET.get('session_key')
+
+        if not session_key:
+            return Response({'error': 'session_key is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+        cart = Cart.objects.filter(session_key=session_key).first()
+        cart_items = CartItem.objects.filter(cart=cart)
+
+        order = Order(
+            session_key=cart.session_key,
+            total_price=cart.total_price
+        )
+        for ci in cart_items:
+            order_item = OrderItem(
+                order=order, 
+                product=ci.product, 
+                product_type=ci.product_type,
+                quantity=ci.quantity
+            )
+            order_item.save()
+        
+        # clean current user cart
+        cart.delete()
+        cart_items.delete()
+
+        serializer = OrderSerializer(order, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)

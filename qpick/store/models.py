@@ -38,3 +38,18 @@ class CartItem(models.Model):
 
     def __str__(self):
         return f'{self.product.title} x{self.quantity} [{self.cart.session_key}]'
+
+
+class Order(models.Model):
+    session_key = models.CharField(max_length=40)
+    total_price = models.IntegerField(default=0)
+    ordered_at = models.DateTimeField(auto_now_add=True)
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product_type = models.CharField(max_length=16, default='')
+    quantity = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f'{self.product.title} x{self.quantity} [{self.order.session_key}]'

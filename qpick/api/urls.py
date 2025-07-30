@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import HeadphoneView, CoverView, AddToCartView, CartView
+from .views import HeadphoneView, CoverView, AddToCartView, CartView, OrderView
 
 
 urlpatterns = [
@@ -9,4 +9,6 @@ urlpatterns = [
 
     path('cart', CartView.as_view()),
     path('cart/add/', AddToCartView.as_view()),
+
+    path('order', OrderView.as_view())
 ]
