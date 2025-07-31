@@ -1,4 +1,4 @@
-import { addToCart } from '../services/cart'
+import { addToCartRequest } from '../services/cart'
 
 
 function HeadphoneCard({product, includeButton = false}) {
@@ -13,8 +13,13 @@ function HeadphoneCard({product, includeButton = false}) {
                 </div>
                 <img src={product.image} alt="/src/assets/default-image.webp" className="earPodsImage" />
                 <div className="cardInfo">
-                    <div className="cardName">{product.title}</div>
-                    <div className="cardPrice">{product.price}{product.currency}</div>
+                    <div className="left">
+                        <div className="cardName">{product.title}</div>
+                        <div className="cardPrice">{product.price}{product.currency}</div>
+                    </div>
+                    <div className="right">
+                        <div className="max-quantity">Units in Stock: {product.quantity}</div>
+                    </div>
                 </div>
                 <button onClick={() => {
                     let quantity = prompt('Enter Quantity: ')
@@ -23,9 +28,8 @@ function HeadphoneCard({product, includeButton = false}) {
                         alert('Error: Quantity Must be Greater Than 0')
                         return null
                     }
-    
-                    addToCart(product.id, 'Headphone', quantity)
-                }}>Add To Cart</button>
+                    addToCartRequest(product.id, 'Headphone', quantity)
+                }}>Add to Cart</button>
             </div>
         )
     } else {

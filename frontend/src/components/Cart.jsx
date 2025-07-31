@@ -6,6 +6,7 @@ import { orderMyCart } from "../services/order"
 
 
 function Cart({cartItems}) {
+    console.log(cartItems)
 
     return (
         <>

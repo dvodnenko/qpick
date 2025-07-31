@@ -2,7 +2,7 @@ import API from '../utils/api'
 import { getSessionKey } from '../utils/session'
 
 
-export const addToCart = async (productId, productType, quantity = 1) => {
+export const addToCartRequest = async (productId, productType, quantity = 1) => {
     const sessionKey = getSessionKey()
 
     const data = {
@@ -12,7 +12,12 @@ export const addToCart = async (productId, productType, quantity = 1) => {
         session_key: sessionKey,
     }
     
-    await API.post('/api/cart/add/', data)
+    try {
+        await API.post('/api/cart/add/', data)
+    }
+    catch (error) {
+        console.log(error)
+    }
 }
 
 export const getCart = async () => {

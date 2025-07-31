@@ -1,4 +1,4 @@
-import { addToCart } from "../services/cart"
+import { addToCartRequest } from "../services/cart"
 
 
 function CoverCard({product, includeButton = false}) {
@@ -13,8 +13,13 @@ function CoverCard({product, includeButton = false}) {
                 </div>
                 <img src={product.image} alt="/src/assets/default-image.webp" className="earPodsImage" />
                 <div className="cardInfo">
-                    <div className="cardName">{product.title}</div>
-                    <div className="cardPrice">{product.price}{product.currency}</div>
+                    <div className="left">
+                        <div className="cardName">{product.title}</div>
+                        <div className="cardPrice">{product.price}{product.currency}</div>
+                    </div>
+                    <div className="right">
+                        <div className="max-quantity">Units in Stock: {product.quantity}</div>
+                    </div>
                 </div>
                 <button onClick={() => {
                         let quantity = prompt('Enter Quantity: ')
@@ -24,7 +29,7 @@ function CoverCard({product, includeButton = false}) {
                             return null
                         }
         
-                        addToCart(product.id, 'Cover', quantity)
+                        addToCartRequest(product.id, 'Cover', quantity)
                     }}>Add To Cart</button>
             </div>
         )

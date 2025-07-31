@@ -60,23 +60,27 @@ class AddToCartView(APIView):
             }
         )
 
-        cart_item, created = CartItem.objects.get_or_create(
+        cart_item = CartItem.objects.filter(
             cart=cart,
             product=product,
             product_type=product_type,
-            defaults={
-                'quantity': quantity_to_add,
-                'product_type': product_type,
-            },
-        )
+        ).first()
 
         # user cannot have 3 products in the cart, if there are only 2 in the storage
-        # if cart_item.quantity + quantity_to_add > product.quantity:
-        #     return Response({'error': 'quantity is too big'}, status=status.HTTP_403_FORBIDDEN)
 
-        if not created:
+        if not cart_item: # if created
+            if quantity_to_add > product.quantity:
+                return Response({'error': 'quantity is too big'}, status=status.HTTP_403_FORBIDDEN)
+            cart_item = CartItem(cart=cart, product=product, product_type=product_type, quantity=quantity_to_add)
+        else: # if not created
+            if cart_item.quantity + quantity_to_add > product.quantity:
+                return Response({'error': 'quantity is too big'}, status=status.HTTP_403_FORBIDDEN)
             cart_item.quantity += quantity_to_add
-            cart_item.save()
+
+        cart_item.save()
+
+        cart.total_price += (product.price * quantity_to_add)
+        cart.save()
 
         serializer = CartItemSerializer(cart_item)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -131,9 +135,11 @@ class OrderView(APIView):
                 product_type=ci.product_type,
                 quantity=ci.quantity
             )
+            ci.product.quantity -= ci.quantity
+            ci.product.save()
             order_item.save()
-            order.total_price += ci.product.price * ci.quantity
-        order.save()
+            if ci.product.quantity <= 0:
+                ci.product.delete()
         
         # clean current user cart
         cart.delete()

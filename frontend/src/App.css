@@ -218,6 +218,12 @@ h5{
     display: block;
     width: 100%;
     margin-top: 55px;
+    display: flex;
+}
+
+.cardInfo .left,
+.cardInfo .right {
+    width: 50%;
 }
 
 .cardName{
