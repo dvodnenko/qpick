@@ -70,11 +70,11 @@ class AddToCartView(APIView):
 
         if not cart_item: # if created
             if quantity_to_add > product.quantity:
-                return Response({'error': 'quantity is too big'}, status=status.HTTP_403_FORBIDDEN)
+                return Response({'error': 'Quantity is Too Big'}, status=status.HTTP_403_FORBIDDEN)
             cart_item = CartItem(cart=cart, product=product, product_type=product_type, quantity=quantity_to_add)
         else: # if not created
             if cart_item.quantity + quantity_to_add > product.quantity:
-                return Response({'error': 'quantity is too big'}, status=status.HTTP_403_FORBIDDEN)
+                return Response({'error': 'quantity is Too big'}, status=status.HTTP_403_FORBIDDEN)
             cart_item.quantity += quantity_to_add
 
         cart_item.save()
@@ -91,7 +91,7 @@ class CartView(APIView):
         session_key = request.GET.get('session_key')
 
         if not session_key:
-            return Response({'error': 'session_key is required'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': 'Session Key is Required'}, status=status.HTTP_400_BAD_REQUEST)
 
         cart = Cart.objects.filter(session_key=session_key).first()
         cart_items = CartItem.objects.filter(cart=cart)
@@ -105,7 +105,7 @@ class OrderView(APIView):
         session_key = request.GET.get('session_key')
 
         if not session_key:
-            return Response({'error': 'session_key is required'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': 'Session Key is Required'}, status=status.HTTP_400_BAD_REQUEST)
 
         order = Order.objects.filter(session_key=session_key).first()
         order_items = CartItem.objects.filter(order=order)
@@ -118,9 +118,13 @@ class OrderView(APIView):
         print(session_key)
 
         if not session_key:
-            return Response({'error': 'session_key is required'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': 'Session Key is Required'}, status=status.HTTP_400_BAD_REQUEST)
 
         cart = Cart.objects.filter(session_key=session_key).first()
+
+        if not cart or cart.total_price == 0: # then the cart is empty
+            return Response({'error': 'Your Cart is Empty'}, status=status.HTTP_403_FORBIDDEN)
+
         cart_items = CartItem.objects.filter(cart=cart)
 
         order = Order(

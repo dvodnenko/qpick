@@ -16,7 +16,8 @@ export const addToCartRequest = async (productId, productType, quantity = 1) => 
         await API.post('/api/cart/add/', data)
     }
     catch (error) {
-        console.log(error)
+        let errorText = error.response.data.error
+        alert(errorText)
     }
 }
 
