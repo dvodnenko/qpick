@@ -372,3 +372,27 @@ section .card {
 main h3{
     color: grey;
 }
+
+.buy-button-container {
+    width: 20%;
+}
+
+.buy-button-container button {
+    width: 80%;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    font-weight: 800;
+    transition: 0.3s;
+}
+
+.buy-button-container button:hover {
+    width: 80%;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    font-weight: 800;
+    cursor: pointer;
+    background-color: rgb(129, 129, 129);
+    transition: 0.3s;
+}

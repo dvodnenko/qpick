@@ -2,6 +2,7 @@ import Header from "./Header"
 import Footer from "./Footer"
 import HeadphoneCard from "./HeadphoneCard"
 import CoverCard from "./CoverCard"
+import { orderMyCart } from "../services/order"
 
 
 function Cart({cartItems}) {
@@ -11,6 +12,12 @@ function Cart({cartItems}) {
             <Header titleContent={'My Cart'} />
 
             <main>
+                <div className="buy-button-container">
+                    <button onClick={() => {
+                        orderMyCart()
+                    }}>Order Everything in Cart</button>
+                </div>
+
                 {cartItems.length > 0 ? <h3>My Cart Items</h3> : <h3>No Items in Your Cart yet</h3>}
                 <section>
                     {cartItems.map((element, index) => {

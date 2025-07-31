@@ -2,7 +2,6 @@ import { addToCart } from '../services/cart'
 
 
 function HeadphoneCard({product, includeButton = false}) {
-    console.log(product)
 
     if (includeButton) {
         return (

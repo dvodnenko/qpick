@@ -71,8 +71,8 @@ class AddToCartView(APIView):
         )
 
         # user cannot have 3 products in the cart, if there are only 2 in the storage
-        if cart_item.quantity + quantity_to_add > product.quantity:
-            return Response({'error': 'quantity is too big'}, status=status.HTTP_403_FORBIDDEN)
+        # if cart_item.quantity + quantity_to_add > product.quantity:
+        #     return Response({'error': 'quantity is too big'}, status=status.HTTP_403_FORBIDDEN)
 
         if not created:
             cart_item.quantity += quantity_to_add
@@ -110,7 +110,8 @@ class OrderView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request: HttpRequest):
-        session_key = request.GET.get('session_key')
+        session_key = request.data.get('session_key')
+        print(session_key)
 
         if not session_key:
             return Response({'error': 'session_key is required'}, status=status.HTTP_400_BAD_REQUEST)
@@ -122,6 +123,7 @@ class OrderView(APIView):
             session_key=cart.session_key,
             total_price=cart.total_price
         )
+        order.save()
         for ci in cart_items:
             order_item = OrderItem(
                 order=order, 
@@ -130,11 +132,13 @@ class OrderView(APIView):
                 quantity=ci.quantity
             )
             order_item.save()
+            order.total_price += ci.product.price * ci.quantity
+        order.save()
         
         # clean current user cart
         cart.delete()
         cart_items.delete()
 
-        serializer = OrderSerializer(order, many=True)
+        serializer = OrderSerializer(order, many=False)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
