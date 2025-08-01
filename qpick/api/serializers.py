@@ -5,21 +5,21 @@ from store.models import Product, Headphone, Cover, Cart, CartItem, Order, Order
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ['id', 'title', 'price', 'currency', 'image', 'quantity']
+        fields = ['id', 'title', 'price', 'image', 'quantity']
 
 
 class HeadphoneSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Headphone
-        fields = ['id', 'title', 'price', 'currency', 'image', 'quantity']
+        fields = ['id', 'title', 'price', 'image', 'quantity']
 
 
 class CoverSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Cover
-        fields = ['id', 'title', 'price', 'currency', 'image', 'quantity']
+        fields = ['id', 'title', 'price', 'image', 'quantity']
 
 
 class CartSerializer(serializers.ModelSerializer):

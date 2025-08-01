@@ -15,7 +15,7 @@ function CoverCard({product, includeButton = false}) {
                 <div className="cardInfo">
                     <div className="left">
                         <div className="cardName">{product.title}</div>
-                        <div className="cardPrice">{product.price}{product.currency}</div>
+                        <div className="cardPrice">{product.price}</div>
                     </div>
                     <div className="right">
                         <div className="max-quantity">Units in Stock: {product.quantity}</div>
@@ -44,7 +44,7 @@ function CoverCard({product, includeButton = false}) {
                 <img src={product.image} alt="/src/assets/default-image.webp" className="earPodsImage" />
                 <div className="cardInfo">
                     <div className="cardName">{product.title}</div>
-                    <div className="cardPrice">{product.price}{product.currency}</div>
+                    <div className="cardPrice">{product.price}</div>
                 </div>
             </div>
         )
